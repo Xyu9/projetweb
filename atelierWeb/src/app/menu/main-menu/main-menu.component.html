@@ -1,0 +1,30 @@
+<!-- main-layout.component.html -->
+
+<mat-toolbar color="primary">
+  <div class="toolbar-left">
+    <span>Atelier</span>
+  </div>
+  <div class="toolbar-right">
+    <button mat-button routerLink="/login">Connexion</button>
+    <button mat-button routerLink="/signup">Création de Compte</button>
+    <button mat-button routerLink="/logout">Déconnexion</button>
+  </div>
+</mat-toolbar>
+
+<div class="main-content">
+  <mat-card class="message-area mat-elevation-z2">
+    <mat-card-content class="articles-container">
+      <app-articles
+        *ngFor="let article of articles"
+        [title]="article.title"
+        [message]="article.message"
+        [createdAt]="article.createdAt"
+        (ArticleEvent)="handleArticleEvent($event)"
+      ></app-articles>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-toolbar color="accent" class="footer mat-elevation-z2">
+  <span>Contact</span>
+</mat-toolbar>
