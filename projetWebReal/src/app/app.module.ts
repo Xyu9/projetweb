@@ -9,6 +9,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { MainMenuComponent } from './menu/main-menu/main-menu.component';
 import { ArticlesComponent } from './menu/articles/articles.component';
 
+import { HttpClientModule } from "@angular/common/http";
 
 import {MatCard, MatCardContent, MatCardModule} from '@angular/material/card';
 import {MatToolbar, MatToolbarModule} from '@angular/material/toolbar';
@@ -17,6 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+
+//import '../../api/index';
 
 
 @NgModule({
@@ -28,6 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ArticlesComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
