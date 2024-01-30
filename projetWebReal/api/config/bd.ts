@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 console.log('Script started');
-mongoose.connect('mongodb://127.0.0.1/Web');
+mongoose.connect('mongodb://127.0.0.1/web');
 
 
 //rajouter

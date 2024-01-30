@@ -4,5 +4,8 @@ import {userController} from '../controllers/userController';
 
 // Registration route
 router.post('/register', userController.register);
+router.post('/login', userController.login);
 
-module.exports = router;
+//module.exports = router;
+
+export { router };

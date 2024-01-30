@@ -1,21 +1,16 @@
 <!-- login.component.html -->
 <div class="login-container">
   <h2>Connexion</h2>
-  <form class="login-form">
+  <form class="login-form" (ngSubmit)="login()">
 
     <mat-form-field class="full-width">
       <label for="username">Nom d'utilisateur</label>
-      <input matInput type="text" id="username" name="username" required>
+      <input matInput type="text" id="username" name="username" required [(ngModel)]="username">
     </mat-form-field>
 
     <mat-form-field class="full-width">
       <label for="password">Mot de passe</label>
-      <input matInput type="password" id="password" name="password" required>
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <label for="passwordConfirm">Confirmation Mot de passe</label>
-      <input matInput type="password" id="passwordConfirm" name="passwordConfirm" required>
+      <input matInput type="password" id="password" name="password" required [(ngModel)]="password">
     </mat-form-field>
 
     <button mat-raised-button type="submit" class="signup-button">Connexion</button>

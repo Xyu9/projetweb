@@ -4,10 +4,17 @@ import bodyParser from "body-parser";
 import "./config/bd";
 import {router} from "./routes/router";
 
+const cors = require('cors');
+
 const app: Express = express();
 
-app.get('/register', userController.register);
+app.use(cors());
+
 app.use(bodyParser.json());
+
+//app.get('/register', userController.register);
+app.post('/register', userController.register);
+
 app.use(router);
 
 app.listen(3000, () => {

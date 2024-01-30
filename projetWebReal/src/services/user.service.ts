@@ -8,13 +8,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:3000'; // Change this to your backend URL
+  private baseUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
   register(user: { username: string, password: string }): Observable<any> {
     console.log('Appel services...');
-    const url = `${this.baseUrl}/register`; // Change this to your backend API endpoint
+    const url = `${this.baseUrl}/auth/register`;
+    return this.http.post(url, user);
+  }
+
+  login(user: { username: string, password: string }): Observable<any> {
+    console.log('Appel services...');
+    const url = `${this.baseUrl}/auth/login`;
     return this.http.post(url, user);
   }
 }
