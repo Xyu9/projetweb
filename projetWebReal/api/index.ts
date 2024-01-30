@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import { userController } from "./controllers/userController";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import "./config/bd";
 import {router} from "./routes/router";
 
@@ -11,6 +12,7 @@ const app: Express = express();
 app.use(cors());
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 //app.get('/register', userController.register);
 app.post('/register', userController.register);

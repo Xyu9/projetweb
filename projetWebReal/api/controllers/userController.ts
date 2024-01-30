@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../models/users";
 import bcrypt from "bcrypt";
+import * as jwt from 'jsonwebtoken';
 
 export class userController {
   static register = async (req: Request, res: Response) => {
@@ -10,10 +11,7 @@ export class userController {
     console.log('infos...' + username + password);
 
     try {
-      const existingUser = await User.findOne({ username });
-      if (existingUser) {
-        return res.status(400).json({ message: 'Username already exists' });
-      }
+
 
       const salt = await bcrypt.genSalt(10);
 
@@ -35,7 +33,7 @@ export class userController {
     const { username, password } = req.body;
 
     try {
-      const user: any | null = await User.findOne({ username }); // Use 'any' for simplicity
+      const user: any | null = await User.findOne({ username });
 
       if (!user) {
         return res.status(401).json({ message: 'Invalid username or password' });
@@ -47,7 +45,10 @@ export class userController {
         return res.status(401).json({ message: 'Invalid username or password' });
       }
 
-      // You might want to generate and send a token for authentication here
+      const jwtBearerToken = jwt.sign({ username }, "loginKey", { expiresIn: 120 });
+      res.cookie("SESSIONID", jwtBearerToken, { httpOnly: true });
+
+      console.log(jwtBearerToken);
 
       return res.status(200).json({ message: 'Login successful' });
     } catch (error) {

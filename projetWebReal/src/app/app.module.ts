@@ -19,6 +19,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { AddArticlesComponent } from './menu/add-articles/add-articles.component';
+import { ShowArticlesComponent } from './menu/show-articles/show-articles.component';
+import { ModArticlesComponent } from './menu/mod-articles/mod-articles.component';
 
 //import '../../api/index';
 
@@ -29,7 +32,10 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     SignupComponent,
     MainMenuComponent,
-    ArticlesComponent
+    ArticlesComponent,
+    AddArticlesComponent,
+    ShowArticlesComponent,
+    ModArticlesComponent
   ],
   imports: [
     FormsModule,
