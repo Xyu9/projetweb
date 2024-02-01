@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  <div class="toolbar-left">
+    <span>Atelier</span>
+  </div>
+  <div class="toolbar-right">
+    <button mat-button routerLink="/">Retour</button>
+    <button mat-button routerLink="/logout">Déconnexion</button>
+  </div>
+</mat-toolbar>
+
+<div class="container">
+
+  <form>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Title" [(ngModel)]="articleTitle" name="articleTitle">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="Content" [(ngModel)]="articleContent" name="articleContent"></textarea>
+    </mat-form-field>
+
+    <button mat-button (click)="addArticle()">Ajouter l'article</button>
+  </form>
+</div>
+
+

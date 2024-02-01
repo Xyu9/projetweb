@@ -1,0 +1,32 @@
+/* main-layout.component.css */
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+}
+
+
+.articles-container {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+
+.container {
+  display: flex;
+  justify-content: flex-start; /* Align items to the right */
+  padding: 10px; /* Add some padding for spacing */
+}
+.full-width {
+  width: 100%;
+}
+

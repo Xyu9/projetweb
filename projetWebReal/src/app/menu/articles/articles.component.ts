@@ -11,22 +11,28 @@ import {DatePipe} from "@angular/common";
 export class ArticlesComponent {
 
   @Input() title!: string;
-  @Input() message!: string;
-  @Input() createdAt!: Date;
+  @Input() content!: string;
+  @Input() createdAt!: string;
 
 
-  @Output() ArticleEvent = new EventEmitter<{ title: string; message: string; createdAt: Date }>();
-
-
-
-  sendArticleInfo(): void {
-    // Emit the event with article information
-    this.ArticleEvent.emit({ title: this.title, message: this.message, createdAt: this.createdAt });
-  }
+  @Output() ArticleEvent = new EventEmitter<{ title: string; content: string; createdAt: string }>();
 
   constructor(private datePipe: DatePipe) {}
 
+
+  ngOnInit() {
+    console.log('Received article:', { title: this.title, content: this.content, createdAt: this.createdAt });
+  }
+
+  sendArticleInfo(): void {
+    // Emit the event with article information
+    this.ArticleEvent.emit({ title: this.title, content: this.content, createdAt: this.createdAt });
+  }
+
+
+
   public formatCreatedAt(): string {
+    console.log('Formatting createdAt:', this.createdAt);
     return this.datePipe.transform(this.createdAt, 'short') || '';
   }
 

@@ -45,10 +45,15 @@ export class userController {
         return res.status(401).json({ message: 'Invalid username or password' });
       }
 
-      const jwtBearerToken = jwt.sign({ username }, "loginKey", { expiresIn: 120 });
-      res.cookie("SESSIONID", jwtBearerToken, { httpOnly: true });
 
-      console.log(jwtBearerToken);
+      const jwtToken = jwt.sign({ username }, "loginKey", { expiresIn: 120 });
+      console.log(jwtToken);
+      res.cookie("userID", jwtToken, { httpOnly: true });
+      console.log(req.cookies.userID);
+
+
+
+
 
       return res.status(200).json({ message: 'Login successful' });
     } catch (error) {
