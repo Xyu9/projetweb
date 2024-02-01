@@ -23,6 +23,8 @@ import { AddArticlesComponent } from './menu/add-articles/add-articles.component
 import { ShowArticlesComponent } from './menu/show-articles/show-articles.component';
 import { ModArticlesComponent } from './menu/mod-articles/mod-articles.component';
 
+import { GuardService } from '../services/guard.service';
+
 //import '../../api/index';
 
 
@@ -38,6 +40,7 @@ import { ModArticlesComponent } from './menu/mod-articles/mod-articles.component
     ModArticlesComponent
   ],
   imports: [
+
     FormsModule,
     HttpClientModule,
     BrowserModule,
@@ -52,7 +55,7 @@ import { ModArticlesComponent } from './menu/mod-articles/mod-articles.component
     MatFormFieldModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [GuardService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

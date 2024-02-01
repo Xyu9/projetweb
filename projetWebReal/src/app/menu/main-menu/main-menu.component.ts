@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { articlesService } from '../../../services/articles.service';
+import { UserService } from '../../../services/user.service';
+
+import { GuardService} from "../../../services/guard.service"
 
 @Component({
   selector: 'app-main-menu',
@@ -8,9 +11,12 @@ import { articlesService } from '../../../services/articles.service';
 })
 export class MainMenuComponent {
 
+
+
+
   articles: any[] = [];
 
-  constructor(private articlesService: articlesService) {}
+  constructor(private userService: UserService,private articlesService: articlesService, private  guardService: GuardService) {}
 
   ngOnInit(): void {
     this.articlesService.getAllArticles().subscribe(
@@ -24,6 +30,27 @@ export class MainMenuComponent {
         // Handle error as needed
       }
     );
+  }
+
+  getLogged(){
+
+    return !this.guardService.isLoggedIn();
+  }
+
+  logout(): void {
+    /*this.userService.login({ username: this.username, password: this.password }).subscribe(
+      response => {
+        console.log(response);
+        localStorage.setItem('user', this.username);
+
+        this.routeur.navigate(['/']);
+      },
+      error => {
+        console.error(error);
+      }
+    );*/
+
+    localStorage.removeItem('user');
   }
 
   handleArticleEvent(articleInfo: { title: string, content: string, createdAt: string }): void {

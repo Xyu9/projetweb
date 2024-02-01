@@ -13,6 +13,8 @@ export class UserService {
   baseUrl = environment.baseUrl
   constructor(private http: HttpClient) {}
 
+
+
   register(user: { username: string, password: string }): Observable<any> {
     console.log('Appel services...');
     const url = `${this.baseUrl}/auth/register`;
@@ -24,4 +26,12 @@ export class UserService {
     const url = `${this.baseUrl}/auth/login`;
     return this.http.post(url, user);
   }
+
+  logout(user: { username: string, password: string }): Observable<any> {
+    console.log('Appel services...');
+    const url = `${this.baseUrl}/auth/login`;
+    return this.http.post(url, user);
+  }
+
+
 }

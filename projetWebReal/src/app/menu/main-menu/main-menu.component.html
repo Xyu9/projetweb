@@ -6,9 +6,14 @@
   </div>
   <div class="toolbar-right">
     <button mat-button routerLink="/showArticles">Mes Articles</button>
-    <button mat-button routerLink="/login">Connexion</button>
-    <button mat-button routerLink="/signup">Création de Compte</button>
-    <button mat-button routerLink="/logout">Déconnexion</button>
+
+    <!-- Show login button if showButtons is true -->
+    <button mat-button *ngIf="getLogged()" routerLink="/login">Connexion</button>
+
+    <!-- Show create account button if showButtons is true -->
+    <button mat-button *ngIf="getLogged()" routerLink="/signup">Création de Compte</button>
+
+    <button mat-button *ngIf="!getLogged()" (click)="logout()">Déconnexion</button>
   </div>
 </mat-toolbar>
 
