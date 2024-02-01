@@ -11,7 +11,7 @@ import { ArticlesComponent } from './menu/articles/articles.component';
 
 import { HttpClientModule } from "@angular/common/http";
 
-import {MatCard, MatCardContent, MatCardModule} from '@angular/material/card';
+import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardModule} from '@angular/material/card';
 import {MatToolbar, MatToolbarModule} from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +23,16 @@ import { AddArticlesComponent } from './menu/add-articles/add-articles.component
 import { ShowArticlesComponent } from './menu/show-articles/show-articles.component';
 import { ModArticlesComponent } from './menu/mod-articles/mod-articles.component';
 
+
 import { GuardService } from '../services/guard.service';
+import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+
+
+
 
 //import '../../api/index';
 
@@ -40,7 +49,9 @@ import { GuardService } from '../services/guard.service';
     ModArticlesComponent
   ],
   imports: [
-
+    MatDialogModule,
+    MatCardModule,
+    MatToolbarModule,
     FormsModule,
     HttpClientModule,
     BrowserModule,
@@ -53,9 +64,14 @@ import { GuardService } from '../services/guard.service';
     MatInputModule,
     MatIconModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardActions,
+    MatCardHeader,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions
   ],
-  providers: [GuardService ],
+  providers: [GuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

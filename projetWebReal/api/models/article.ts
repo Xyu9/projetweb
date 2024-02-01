@@ -1,6 +1,7 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 const articleSchema: Schema = new mongoose.Schema({
+
   title: String,
   content: String,
   date: String,

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { articlesService } from '../../../services/articles.service';
+import {ModArticlesComponent} from "../mod-articles/mod-articles.component";
+import {MatDialog} from "@angular/material/dialog";
+import {UUID} from "node:crypto";
+
 
 @Component({
   selector: 'app-show-articles',
@@ -10,7 +14,10 @@ export class ShowArticlesComponent implements OnInit {
 
   articles: any[] = [];
 
-  constructor(private articlesService: articlesService) {}
+  constructor(
+    private articlesService: articlesService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
 
@@ -23,6 +30,7 @@ export class ShowArticlesComponent implements OnInit {
         response => {
           // Update the articles variable with the received data
           this.articles = response.articles;
+          console.log(this.articles)
 
         },
         error => {
@@ -36,10 +44,24 @@ export class ShowArticlesComponent implements OnInit {
     }
   }
 
-  handleArticleEvent(articleInfo: { title: string, content: string, createdAt: string }): void {
+  /*openEditDialog(articleInfo: { title: string, content: string, createdAt: string }): void {
     // Do something with the emitted article information
     console.log(articleInfo);
+  }*/
+
+  openEditDialog(articleInfo: { id: UUID,title: string, content: string, createdAt: string }): void {
+    const dialogRef = this.dialog.open(ModArticlesComponent, {
+      width: '500px',
+      data: { title: articleInfo.id, content: articleInfo.content }
+    });
+
+    dialogRef.afterClosed().subscribe((newContent: any) => {
+      if (newContent) {
+        console.log(newContent.data)
+      }
+    });
   }
+
 
   formatTimeSinceCreation(createdAt: string): string {
     const articleDate = new Date(createdAt); // Parse the string to Date

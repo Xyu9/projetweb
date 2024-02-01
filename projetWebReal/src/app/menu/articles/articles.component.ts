@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {DatePipe} from "@angular/common";
+import {UUID} from "node:crypto"
 
 @Component({
   selector: 'app-articles',
@@ -10,23 +11,28 @@ import {DatePipe} from "@angular/common";
 
 export class ArticlesComponent {
 
+  @Input() id!: UUID;
   @Input() title!: string;
   @Input() content!: string;
   @Input() createdAt!: string;
 
 
-  @Output() ArticleEvent = new EventEmitter<{ title: string; content: string; createdAt: string }>();
+  @Output() ArticleEvent = new EventEmitter<{ id: UUID,title: string; content: string; createdAt: string }>();
 
   constructor(private datePipe: DatePipe) {}
 
 
   ngOnInit() {
-    console.log('Received article:', { title: this.title, content: this.content, createdAt: this.createdAt });
+    console.log('Received article2:', { id: this.id,title: this.title, content: this.content, createdAt: this.createdAt });
   }
 
-  sendArticleInfo(): void {
+  ModifInfo(): void {
     // Emit the event with article information
-    this.ArticleEvent.emit({ title: this.title, content: this.content, createdAt: this.createdAt });
+    this.ArticleEvent.emit({ id: this.id,title: this.title, content: this.content, createdAt: this.createdAt });
+  }
+  DeleteInfo(): void {
+    // Emit the event with article information
+    this.ArticleEvent.emit({ id: this.id, title: this.title, content: this.content, createdAt: this.createdAt });
   }
 
 

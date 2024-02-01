@@ -16,7 +16,7 @@ export class ArticlesGuard implements CanActivate {
   }
 
   canActivate(): boolean {
-    if (!this.guardService.isLoggedIn()) {
+    if (this.guardService.isLoggedIn()) {
       return true;
     } else {
       this.router.navigate(['/']);

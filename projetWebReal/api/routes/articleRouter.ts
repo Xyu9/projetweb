@@ -8,6 +8,7 @@ import {authenticateJWT} from "../middlewares/jwtMiddleware";
 router.post('/add' ,ArticleController.addArticle);
 router.post('/getByUser' ,ArticleController.getAllArticlesByUser);
 router.get('/getAll' ,ArticleController.getAllArticles);
+router.put('/update' ,ArticleController.update);
 
 //module.exports = router;
 

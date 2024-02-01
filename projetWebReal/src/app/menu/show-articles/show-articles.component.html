@@ -14,10 +14,11 @@
     <mat-card-content class="articles-container">
       <app-articles
         *ngFor="let article of articles"
+        [id]="article.id"
         [title]="article.title"
         [content]="article.content"
         [createdAt]="formatTimeSinceCreation(article.date)"
-        (ArticleEvent)="handleArticleEvent($event)"
+        (ArticleEvent)="openEditDialog(article)"
       ></app-articles>
     </mat-card-content>
   </mat-card>

@@ -3,6 +3,7 @@ import { articlesService } from '../../../services/articles.service';
 import { UserService } from '../../../services/user.service';
 
 import { GuardService} from "../../../services/guard.service"
+import {UUID} from "node:crypto";
 
 @Component({
   selector: 'app-main-menu',
@@ -23,6 +24,7 @@ export class MainMenuComponent {
       response => {
         // Update the articles variable with the received data
         this.articles = response.articles;
+        console.log(this.articles)
 
       },
       error => {
@@ -53,10 +55,11 @@ export class MainMenuComponent {
     localStorage.removeItem('user');
   }
 
-  handleArticleEvent(articleInfo: { title: string, content: string, createdAt: string }): void {
+  handleArticleEvent(articleInfo: { id: UUID; title: string; content: string; createdAt: string }): void {
     // Do something with the emitted article information
     console.log(articleInfo);
   }
+
 
   formatTimeSinceCreation(createdAt: string): string {
     const articleDate = new Date(createdAt); // Parse the string to Date
