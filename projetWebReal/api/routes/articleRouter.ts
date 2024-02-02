@@ -1,16 +1,15 @@
 import express from 'express';
 const router = express.Router();
 import { ArticleController } from '../controllers/articleController';
-import {authenticateJWT} from "../middlewares/jwtMiddleware";
+import { authenticateJWT } from '../middlewares/jwtMiddleware';
 
 // Registration route
-//todo rajouet le token
-router.post('/add' ,ArticleController.addArticle);
-router.post('/getByUser' ,ArticleController.getAllArticlesByUser);
-router.get('/getAll' ,ArticleController.getAllArticles);
-router.put('/update' ,ArticleController.update);
-router.delete('/delete' ,ArticleController.deleteArticle);
+router.post('/add', authenticateJWT, ArticleController.addArticle);
+router.post('/getByUser', authenticateJWT, ArticleController.getAllArticlesByUser);
 
-//module.exports = router;
+
+router.get('/getAll', authenticateJWT, ArticleController.getAllArticles);
+router.put('/update', authenticateJWT, ArticleController.update);
+router.delete('/delete', authenticateJWT, ArticleController.deleteArticle);
 
 export { router };

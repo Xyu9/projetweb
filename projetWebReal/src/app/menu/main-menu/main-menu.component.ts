@@ -4,6 +4,7 @@ import { UserService } from '../../../services/user.service';
 
 import { GuardService} from "../../../services/guard.service"
 import {UUID} from "node:crypto";
+import {NotificationService} from "../../notification.service";
 
 @Component({
   selector: 'app-main-menu',
@@ -17,19 +18,29 @@ export class MainMenuComponent {
 
   articles: any[] = [];
 
-  constructor(private userService: UserService,private articlesService: articlesService, private  guardService: GuardService) {}
+  constructor(private notificationService: NotificationService,private userService: UserService,private articlesService: articlesService, private  guardService: GuardService) {}
 
   ngOnInit(): void {
+    this.userService.generateToken().subscribe(
+      response => {
+
+        console.log(response)
+      },
+      error => {
+        console.error('Erreur lors de generation du token:', error);
+      }
+    );
+
     this.articlesService.getAllArticles().subscribe(
       response => {
-        // Update the articles variable with the received data
         this.articles = response.articles;
-        console.log(this.articles)
+        //console.log(this.articles)
 
       },
       error => {
+        this.notificationService.showNotification(error);
         console.error('Error fetching articles:', error);
-        // Handle error as needed
+
       }
     );
   }

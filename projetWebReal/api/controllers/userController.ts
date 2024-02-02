@@ -46,10 +46,10 @@ export class userController {
       }
 
 
-      const jwtToken = jwt.sign({ username }, "loginKey", { expiresIn: 120 });
-      console.log(jwtToken);
+      const jwtToken = jwt.sign({ username }, "loginKey", { expiresIn: 5000 });
+
       res.cookie("userID", jwtToken, { httpOnly: true });
-      console.log(req.cookies.userID);
+      console.log("le token logging" + req.cookies.userID);
 
 
 

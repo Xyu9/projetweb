@@ -4,6 +4,8 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import "./config/bd";
 import {router} from "./routes/router";
+const validateCSRFMiddleware = require('./middlewares/csrfMiddleware');
+
 
 const cors = require('cors');
 
@@ -13,9 +15,10 @@ app.use(cors());
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(validateCSRFMiddleware);
 
 //app.get('/register', userController.register);
-app.post('/register', userController.register);
+//app.post('/register', userController.register);
 
 app.use(router);
 

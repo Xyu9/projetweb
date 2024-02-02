@@ -28,6 +28,8 @@ export class ArticleController {
   static getAllArticlesByUser = async (req: Request, res: Response) => {
     const userId = req.body.user;
 
+    console.log("utilisateur" + userId)
+
     try {
       const articles = await Article.find({ user: userId }).exec();
 

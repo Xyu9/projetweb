@@ -38,6 +38,8 @@ export class articlesService {
     );
   }
 
+
+
   /*updateArticle(articleInfo: {
     date: string;
     _id: `${string}-${string}-${string}-${string}-${string}`;
@@ -64,18 +66,26 @@ export class articlesService {
 
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'An unknown error occurred';
+    let errorMessage = 'Une erreur inconnue s\'est produite';
 
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = `Error: ${error.error.message}`;
+      // Erreur côté client
+      errorMessage = `Erreur : ${error.error.message}`;
     } else if (error.status === 401) {
-      errorMessage = 'Invalid username or password';
+
+      if (error.error.message === 'Nom d\'utilisateur ou mot de passe incorrect') {
+        errorMessage = 'Nom d\'utilisateur ou mot de passe incorrect';
+      } else if (error.error.message === 'Jeton non valide') {
+        errorMessage = 'Jeton non valide';
+      } else {
+        errorMessage = 'Non autorisé'; // Message générique pour les autres cas 401
+      }
     } else if (error.status === 500) {
-      errorMessage = 'Internal Server Error';
+      errorMessage = 'Erreur interne du serveur';
     }
 
     console.error(errorMessage);
     return throwError(errorMessage);
   }
+
 }

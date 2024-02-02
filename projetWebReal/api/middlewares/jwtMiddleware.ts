@@ -3,9 +3,9 @@ import { NextFunction, Request, Response } from "express";
 import {JwtPayload} from "jsonwebtoken";
 
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
-  let token: string | undefined = req.cookies.SESSIONID || req.headers.authorization;
+  let token: string | undefined = req.cookies.userID || req.headers.authorization;
 
-  console.log(token);
+  console.log("le token" +token);
 
   // Si vous avez le token dans l'en-tête avec le format "Bearer <token>"
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
@@ -14,12 +14,12 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
   console.log("test");
   console.log(token);
   if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return res.status(401).json({ message: 'aucun token' });
   }
 
   jwt.verify(token, "loginKey", (err, payload) => {
     if (err) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      return res.status(401).json({ message: 'Jeton non valide' });
     }
 
     //req.payload = payload;

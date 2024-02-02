@@ -43,16 +43,16 @@ export class ModArticlesComponent {
       date: new Date().toISOString()
     };
 
-    // Call the service method and subscribe to the Observable
+
     this.articleService.updateArticle(updatedData).subscribe(
       (response: any) => {
         console.log('Article modified:', response);
         // Handle the response (if needed)
-        this.dialogRef.close(updatedData); // Close the dialog on success
+        this.dialogRef.close(updatedData);
       },
       (error: HttpErrorResponse) => {
         console.error('Error during article update:', error);
-        // Handle the error (display an error message, for example)
+
       }
     );
   }

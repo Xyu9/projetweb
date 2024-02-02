@@ -3,6 +3,8 @@ import { articlesService } from '../../../services/articles.service';
 import {ModArticlesComponent} from "../mod-articles/mod-articles.component";
 import {MatDialog} from "@angular/material/dialog";
 import {UUID} from "node:crypto";
+import {Router} from "@angular/router";
+import {NotificationService} from "../../notification.service";
 
 
 @Component({
@@ -18,39 +20,14 @@ export class ShowArticlesComponent implements OnInit {
 
   constructor(
     private articlesService: articlesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private routeur: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
-
-
-    const userId = localStorage.getItem('user');
-
-    // Check if userId exists before making the request
-    if (userId) {
-      // Call the service method to get articles by user
-      this.articlesService.getAllArticlesByUser(userId).subscribe(
-        response => {
-          // Update the articles variable with the received data
-          this.articles = response.articles;
-          console.log(this.articles)
-
-        },
-        error => {
-          console.error('Error fetching articles:', error);
-          // Handle error as needed (e.g., show a user-friendly message)
-        }
-      );
-    } else {
-      console.error('User ID not found in localStorage.');
-      // Handle the case where the user ID is not found in localStorage
-    }
+    this.loadArticles();
   }
-
-  /*openEditDialog(articleInfo: { title: string, content: string, createdAt: string }): void {
-    // Do something with the emitted article information
-    console.log(articleInfo);
-  }*/
 
   openEditDialog(articleInfo: { _id: UUID,title: string, content: string, createdAt: string }): void {
     const dialogRef = this.dialog.open(ModArticlesComponent, {
@@ -60,20 +37,40 @@ export class ShowArticlesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((newContent: any) => {
       if (newContent) {
+        this.loadArticles();
         console.log(newContent.data)
       }
     });
+  }
+  private loadArticles(): void {
+    const userId = localStorage.getItem('user');
+    if (userId) {
+      this.articlesService.getAllArticlesByUser(userId).subscribe(
+        response => {
+          this.articles = response.articles;
+          console.log(this.articles);
+        },
+        error => {
+          this.notificationService.showNotification('erreur en récupérant les articles');
+          console.error('erreur en récupérant les articles:', error);
+        }
+      );
+    } else {
+      this.notificationService.showNotification('token non valide');
+
+    }
   }
 
   delete(articleInfo: { _id: UUID, title: string, content: string, createdAt: string }): void {
     // Call the service to delete the article here
     this.articlesService.deleteArticle(articleInfo._id).subscribe(
       (response) => {
-        // Handle the success response
-        console.log('Article deleted successfully', response);
+        this.loadArticles();
+        this.notificationService.showNotification('article bien supprimé');
+        console.log('article bien supprimé', response);
       },
       (error) => {
-        // Handle the error response
+        this.notificationService.showNotification(error);
         console.error('Error deleting article', error);
 
       }
