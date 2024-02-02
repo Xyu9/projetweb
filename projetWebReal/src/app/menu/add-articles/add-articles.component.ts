@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { articlesService } from '../../../services/articles.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {NotificationService} from "../../notification.service";
 
 @Component({
   selector: 'app-add-articles',
@@ -13,7 +14,7 @@ export class AddArticlesComponent {
   articleTitle: string = '';
   articleContent: string = '';
 
-  constructor(private articleService: articlesService) {}
+  constructor(private notificationService: NotificationService,private articleService: articlesService) {}
 
   addArticle() {
     const currentDate = new Date();
@@ -30,12 +31,10 @@ export class AddArticlesComponent {
       user: localStorage.getItem('user')
     }).subscribe(
       (response: HttpResponse<any>) => {
-        console.log('Article added successfully:', response);
-        // You can add other actions here, e.g., redirect to a list of articles
+        this.notificationService.showNotification('Création de l\'article réussie');
       },
       (error: HttpErrorResponse) => {
-        console.error('Error adding article:', error);
-        // Handle the error (display an error message, for example)
+        this.notificationService.showNotification(error);
       }
     );
   }

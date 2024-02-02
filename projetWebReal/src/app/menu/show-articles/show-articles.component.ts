@@ -12,6 +12,8 @@ import {UUID} from "node:crypto";
 })
 export class ShowArticlesComponent implements OnInit {
 
+  showArticleButtons: boolean = true;
+
   articles: any[] = [];
 
   constructor(
@@ -20,6 +22,7 @@ export class ShowArticlesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
 
     const userId = localStorage.getItem('user');
 
@@ -49,10 +52,10 @@ export class ShowArticlesComponent implements OnInit {
     console.log(articleInfo);
   }*/
 
-  openEditDialog(articleInfo: { id: UUID,title: string, content: string, createdAt: string }): void {
+  openEditDialog(articleInfo: { _id: UUID,title: string, content: string, createdAt: string }): void {
     const dialogRef = this.dialog.open(ModArticlesComponent, {
       width: '500px',
-      data: { title: articleInfo.id, content: articleInfo.content }
+      data: { _id: articleInfo._id,title: articleInfo.title, content: articleInfo.content }
     });
 
     dialogRef.afterClosed().subscribe((newContent: any) => {
@@ -60,6 +63,21 @@ export class ShowArticlesComponent implements OnInit {
         console.log(newContent.data)
       }
     });
+  }
+
+  delete(articleInfo: { _id: UUID, title: string, content: string, createdAt: string }): void {
+    // Call the service to delete the article here
+    this.articlesService.deleteArticle(articleInfo._id).subscribe(
+      (response) => {
+        // Handle the success response
+        console.log('Article deleted successfully', response);
+      },
+      (error) => {
+        // Handle the error response
+        console.error('Error deleting article', error);
+
+      }
+    );
   }
 
 

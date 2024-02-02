@@ -55,7 +55,7 @@ export class MainMenuComponent {
     localStorage.removeItem('user');
   }
 
-  handleArticleEvent(articleInfo: { id: UUID; title: string; content: string; createdAt: string }): void {
+  handleArticleEvent(articleInfo: { _id: UUID; title: string; content: string; createdAt: string }): void {
     // Do something with the emitted article information
     console.log(articleInfo);
   }

@@ -9,7 +9,7 @@
     <p>Date Création: {{ createdAt }}</p>
   </mat-card-content>
 
-  <mat-card-actions>
+  <mat-card-actions *ngIf="showButtons">
     <button mat-button color="primary" (click)="ModifInfo()">Modifier</button>
     <button mat-button color="warn" (click)="DeleteInfo()">Supprimer</button>
   </mat-card-actions>

@@ -26,6 +26,7 @@ import { ModArticlesComponent } from './menu/mod-articles/mod-articles.component
 
 import { GuardService } from '../services/guard.service';
 import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 import { MatDialogModule } from '@angular/material/dialog';
@@ -49,6 +50,7 @@ import { MatDialog } from '@angular/material/dialog';
     ModArticlesComponent
   ],
   imports: [
+    MatSnackBarModule,
     MatDialogModule,
     MatCardModule,
     MatToolbarModule,

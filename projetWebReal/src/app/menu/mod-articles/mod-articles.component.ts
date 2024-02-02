@@ -13,17 +13,17 @@ import {UUID} from "node:crypto"
 })
 export class ModArticlesComponent {
 
-  id: UUID;
+  _id: UUID;
   newTitle: string;
   newContent: string;
 
   constructor(
     private articleService: articlesService,
     public dialogRef: MatDialogRef<ModArticlesComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: UUID,title: string, content: string }
+    @Inject(MAT_DIALOG_DATA) public data: { _id: UUID,title: string, content: string }
   ) {
     // Initialize properties with existing data
-    this.id = data.id;
+    this._id = data._id;
     this.newTitle = data.title;
     this.newContent = data.content;
   }
@@ -34,30 +34,25 @@ export class ModArticlesComponent {
 
   // mod-articles.component.ts
   onSaveClick(): void {
-    // Call the updateArticle method from the service
-    const updatedData: Article = {
-      id: this.id,
+    // Prepare the data to be sent to the service
+    console.log("test id" + this._id)
+    const updatedData = {
+      _id: this._id,
       title: this.newTitle,
       content: this.newContent,
-      date: '', // You might need to set a date here based on your model
-      user: ''  // You might need to set a user here based on your model
+      date: new Date().toISOString()
     };
-
-    console.log("test1" +updatedData.id)
 
     // Call the service method and subscribe to the Observable
     this.articleService.updateArticle(updatedData).subscribe(
       (response: any) => {
         console.log('Article modified:', response);
         // Handle the response (if needed)
+        this.dialogRef.close(updatedData); // Close the dialog on success
       },
       (error: HttpErrorResponse) => {
         console.error('Error during article update:', error);
         // Handle the error (display an error message, for example)
-      },
-      () => {
-        // This block will be executed on completion (whether success or error)
-        this.dialogRef.close(updatedData);
       }
     );
   }

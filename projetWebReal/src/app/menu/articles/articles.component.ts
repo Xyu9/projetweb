@@ -11,28 +11,31 @@ import {UUID} from "node:crypto"
 
 export class ArticlesComponent {
 
-  @Input() id!: UUID;
+  @Input() _id!: UUID;
   @Input() title!: string;
   @Input() content!: string;
   @Input() createdAt!: string;
+  @Input() showButtons: boolean = false;
 
 
-  @Output() ArticleEvent = new EventEmitter<{ id: UUID,title: string; content: string; createdAt: string }>();
+  @Output() ArticleEvent = new EventEmitter<{ _id: UUID,title: string; content: string; createdAt: string }>();
+  @Output() ArticleEvent2 = new EventEmitter<{ _id: UUID,title: string; content: string; createdAt: string }>();
+
 
   constructor(private datePipe: DatePipe) {}
 
 
   ngOnInit() {
-    console.log('Received article2:', { id: this.id,title: this.title, content: this.content, createdAt: this.createdAt });
+    console.log('Received article2:', { _id: this._id,title: this.title, content: this.content, createdAt: this.createdAt });
   }
 
   ModifInfo(): void {
     // Emit the event with article information
-    this.ArticleEvent.emit({ id: this.id,title: this.title, content: this.content, createdAt: this.createdAt });
+    this.ArticleEvent.emit({ _id: this._id,title: this.title, content: this.content, createdAt: this.createdAt });
   }
   DeleteInfo(): void {
     // Emit the event with article information
-    this.ArticleEvent.emit({ id: this.id, title: this.title, content: this.content, createdAt: this.createdAt });
+    this.ArticleEvent2.emit({ _id: this._id, title: this.title, content: this.content, createdAt: this.createdAt });
   }
 
 
