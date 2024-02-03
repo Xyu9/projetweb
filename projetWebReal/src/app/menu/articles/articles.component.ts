@@ -30,11 +30,11 @@ export class ArticlesComponent {
   }
 
   ModifInfo(): void {
-    // Emit the event with article information
+
     this.ArticleEvent.emit({ _id: this._id,title: this.title, content: this.content, createdAt: this.createdAt });
   }
   DeleteInfo(): void {
-    // Emit the event with article information
+
     this.ArticleEvent2.emit({ _id: this._id, title: this.title, content: this.content, createdAt: this.createdAt });
   }
 

@@ -79,11 +79,10 @@ export class ShowArticlesComponent implements OnInit {
 
 
   formatTimeSinceCreation(createdAt: string): string {
-    const articleDate = new Date(createdAt); // Parse the string to Date
+    const articleDate = new Date(createdAt);
     const currentDate = new Date();
     const timeDifference = currentDate.getTime() - articleDate.getTime();
 
-    // Calculate elapsed time in seconds, minutes, hours, etc.
     const seconds = Math.floor(timeDifference / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);

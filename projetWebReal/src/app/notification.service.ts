@@ -11,7 +11,7 @@ export class NotificationService {
     const errorMessage = this.getErrorMessage(message);
 
     this.snackBar.open(errorMessage, 'Fermer', {
-      duration: 3000, // Duration in milliseconds
+      duration: 3000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });

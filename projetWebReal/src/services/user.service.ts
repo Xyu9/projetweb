@@ -23,11 +23,7 @@ export class UserService {
     );
   }
 
-  /*login(user: { username: string, password: string }): Observable<any> {
-    console.log('Appel services...');
-    const url = `${this.baseUrl}/auth/login`;
-    return this.http.post(url, user);
-  }*/
+
 
   login(user: { username: string, password: string }): Observable<any> {
     const url = `${this.baseUrl}/auth/login`;
@@ -56,7 +52,7 @@ export class UserService {
     let errorMessage = 'Une erreur inconnue s\'est produite';
 
     if (error.error instanceof ErrorEvent) {
-      // Erreur côté client
+
       errorMessage = `Erreur : ${error.error.message}`;
     } else if (error.status === 401) {
 
@@ -67,8 +63,13 @@ export class UserService {
       } else {
         errorMessage = 'Non autorisé';
       }
+
     } else if (error.status === 500) {
       errorMessage = 'Erreur interne du serveur';
+    } else if (error.status === 405) {
+      errorMessage = 'Compte existant';
+    } else {
+      errorMessage = 'Non autorisé';
     }
 
     console.error(errorMessage);

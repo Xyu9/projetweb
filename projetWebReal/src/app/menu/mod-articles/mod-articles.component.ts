@@ -5,6 +5,7 @@ import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Article} from "../../models/articles";
 import {ArticleController} from "../../../../api/controllers/articleController";
 import {UUID} from "node:crypto"
+import {NotificationService} from "../../notification.service";
 
 @Component({
   selector: 'app-mod-articles',
@@ -20,9 +21,10 @@ export class ModArticlesComponent {
   constructor(
     private articleService: articlesService,
     public dialogRef: MatDialogRef<ModArticlesComponent>,
+    private notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: { _id: UUID,title: string, content: string }
   ) {
-    // Initialize properties with existing data
+
     this._id = data._id;
     this.newTitle = data.title;
     this.newContent = data.content;
@@ -32,9 +34,9 @@ export class ModArticlesComponent {
     this.dialogRef.close();
   }
 
-  // mod-articles.component.ts
+
   onSaveClick(): void {
-    // Prepare the data to be sent to the service
+
     console.log("test id" + this._id)
     const updatedData = {
       _id: this._id,
@@ -46,11 +48,12 @@ export class ModArticlesComponent {
 
     this.articleService.updateArticle(updatedData).subscribe(
       (response: any) => {
-        console.log('Article modified:', response);
-        // Handle the response (if needed)
+
+        this.notificationService.showNotification('article bien modifié');
         this.dialogRef.close(updatedData);
       },
       (error: HttpErrorResponse) => {
+        this.notificationService.showNotification(error);
         console.error('Error during article update:', error);
 
       }

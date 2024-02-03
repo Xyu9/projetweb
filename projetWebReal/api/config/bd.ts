@@ -5,7 +5,6 @@ console.log('Script started');
 mongoose.connect('mongodb://127.0.0.1/web');
 
 
-//rajouter
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

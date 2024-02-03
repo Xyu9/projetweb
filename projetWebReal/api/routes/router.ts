@@ -12,23 +12,20 @@ const crypto = require('crypto');
 
 router.get('/generate-csrf-token', (req, res) => {
   try {
-    // Générez le jeton CSRF (par exemple, avec l'ID de session et une clé d'application)
-    const sessionId = req.sessionID; // Exemple avec l'ID de session
-    const applicationKey = 'csrfKey'; // Remplacez par votre clé d'application
+    const sessionId = req.sessionID;
+    const applicationKey = 'csrfKey';
     const csrfToken = crypto.createHmac('sha256', applicationKey).update(sessionId).digest('hex');
 
-    // Log intermediate values
-    console.log('Session ID:', sessionId);
-    console.log('Application Key:', applicationKey);
-    console.log('CSRF Token:', csrfToken);
+    console.error('Session ID:', sessionId);
+    console.error('Application Key:', applicationKey);
+    console.error('CSRF Token:', csrfToken);
 
-    // Placez le jeton dans le cookie XSRF-TOKEN
     res.cookie('XSRF-TOKEN', csrfToken, { httpOnly: false });
 
     res.status(200).json({ csrfToken });
   } catch (error) {
-    console.error('Error generating CSRF token:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Erreur de la generation du token csrf:', error);
+    res.status(500).json({ error: 'Erreur Interne du serveur' });
   }
 });
 

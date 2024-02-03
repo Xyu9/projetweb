@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import "./config/bd";
 import {router} from "./routes/router";
+import session from "express-session";
 const validateCSRFMiddleware = require('./middlewares/csrfMiddleware');
 
 
@@ -13,12 +14,15 @@ const app: Express = express();
 
 app.use(cors());
 
+app.use(session({
+  secret: 'csrfKey',
+  resave: false,
+  saveUninitialized: true
+}));
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(validateCSRFMiddleware);
-
-//app.get('/register', userController.register);
-//app.post('/register', userController.register);
 
 app.use(router);
 

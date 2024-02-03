@@ -40,17 +40,6 @@ export class articlesService {
 
 
 
-  /*updateArticle(articleInfo: {
-    date: string;
-    _id: `${string}-${string}-${string}-${string}-${string}`;
-    title: string;
-    content: string
-  }): Observable<any> {
-    const url = `${this.baseUrl}/update`;
-    return this.http.put(url, articleInfo);
-  }*/
-
-
   updateArticle(updatedData: { _id: UUID; title: string; content: string; date: string }): Observable<any> {
     const url = `${this.baseUrl}/articles/update`;
     return this.http.put(url, updatedData).pipe(
@@ -69,7 +58,7 @@ export class articlesService {
     let errorMessage = 'Une erreur inconnue s\'est produite';
 
     if (error.error instanceof ErrorEvent) {
-      // Erreur côté client
+
       errorMessage = `Erreur : ${error.error.message}`;
     } else if (error.status === 401) {
 
@@ -78,11 +67,16 @@ export class articlesService {
       } else if (error.error.message === 'Jeton non valide') {
         errorMessage = 'Jeton non valide';
       } else {
-        errorMessage = 'Non autorisé'; // Message générique pour les autres cas 401
+        errorMessage = 'Non autorisé';
       }
     } else if (error.status === 500) {
       errorMessage = 'Erreur interne du serveur';
+    } else if (error.status === 404) {
+      errorMessage = 'Article Non trouvé';
+    } else {
+      errorMessage = 'Non autorisé';
     }
+
 
     console.error(errorMessage);
     return throwError(errorMessage);

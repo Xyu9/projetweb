@@ -13,10 +13,7 @@ export const usersMiddleware = {
         return res.status(401).json({ message: 'Invalid username or password' });
       }
 
-      // Attach the user to the request object for future middleware/routes
-      //req.user = user;
-
-      next(); // Continue to the next middleware or route
+      next();
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'Internal Server Error' });
@@ -29,16 +26,30 @@ export const usersMiddleware = {
       const user: any | null = await User.findOne({ username });
 
       if (user) {
-        return res.status(401).json({ message: 'Compte Existant' });
+        return res.status(405).json({ message: 'Compte Existant' });
       }
 
-      // Attach the user to the request object for future middleware/routes
-      //req.user = user;
 
-      next(); // Continue to the next middleware or route
+      next();
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'Internal Server Error' });
     }
   },
+
+  isLoggedIn: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      let user = req.cookies['userID'];
+
+      if (user) {
+
+        next();
+      } else {
+        return res.status(401).json({ message: 'User not logged in' });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
 };
